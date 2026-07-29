@@ -1,0 +1,65 @@
+{
+  "RaeumeDialog.tsx": {
+    "raumname": "z. B. Saal A",
+    "kapazitaet": "z. B. 20",
+    "etage": "z. B. 2. OG / Westflügel",
+    "ausstattung": "Ausstattung wählen",
+    "verfuegbarkeit": "Status wählen",
+    "bemerkungen_raum": "Besonderheiten, Ausstattung, Hinweise..."
+  },
+  "DozentenDialog.tsx": {
+    "vorname": "z. B. Maria",
+    "nachname": "z. B. Schmidt",
+    "email": "z. B. maria@musikschule.de",
+    "telefon": "z. B. 030 12345678",
+    "instrumente": "Welche Instrumente unterrichten Sie?",
+    "qualifikationen": "Ausbildung, Diplome, Zertifikate...",
+    "beschaeftigungsart": "Beschäftigungsart wählen"
+  },
+  "KurseWorkshopsDialog.tsx": {
+    "titel": "z. B. Gitarre für Anfänger",
+    "kurstyp": "Kurstyp wählen",
+    "niveau": "Welches Niveau?",
+    "beschreibung": "Inhalte, Lernziele, Voraussetzungen...",
+    "startdatum": "Wann beginnt der Kurs?",
+    "enddatum": "Wann endet der Kurs?",
+    "wochentag": "An welchen Tagen?",
+    "uhrzeit_beginn": "z. B. 18:00",
+    "uhrzeit_ende": "z. B. 19:30",
+    "raum": "Welcher Raum?",
+    "dozent": "Welcher Dozent unterrichtet?",
+    "max_teilnehmer": "z. B. 15",
+    "preis": "z. B. 89,50",
+    "status_kurs": "Status wählen"
+  },
+  "TeilnehmerDialog.tsx": {
+    "vorname": "z. B. Anna",
+    "nachname": "z. B. Müller",
+    "geburtsdatum": "Geburtsdatum eingeben",
+    "email": "z. B. anna@example.com",
+    "telefon": "z. B. 030 9876543",
+    "strasse": "z. B. Hauptstraße",
+    "hausnummer": "z. B. 42",
+    "postleitzahl": "z. B. 10115",
+    "ort": "z. B. Berlin",
+    "notfall_name": "z. B. Peter Müller",
+    "notfall_telefon": "z. B. 030 5551234",
+    "bemerkungen_tn": "Besonderheiten, Fähigkeiten, Anmerkungen..."
+  },
+  "AnmeldungenDialog.tsx": {
+    "teilnehmer": "Welcher Teilnehmer?",
+    "kurs": "Welcher Kurs?",
+    "anmeldedatum": "Wann angemeldet?",
+    "status_anmeldung": "Anmeldungsstatus",
+    "bemerkungen_anmeldung": "Spezielle Wünsche, Hinweise..."
+  },
+  "ZahlungenDialog.tsx": {
+    "anmeldung": "Welche Anmeldung?",
+    "betrag": "z. B. 89,50",
+    "zahlungsdatum": "Wann gezahlt?",
+    "zahlungsart": "Wie bezahlt?",
+    "zahlungsstatus": "Zahlungsstatus",
+    "rechnungsnummer": "z. B. RE-2026-001",
+    "bemerkungen_zahlung": "Notizen zur Zahlung..."
+  }
+}

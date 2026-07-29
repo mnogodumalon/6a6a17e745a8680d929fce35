@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Räume": {
+      "placeholders_set": 6,
+      "defaults_keys": ["kapazitaet", "verfuegbarkeit"],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten für Raumverwaltung. Kein Datumspaar, keine Preise, keine applookups mit Preis-Target. Keine berechenbaren Formeln."
+    },
+    "Dozenten": {
+      "placeholders_set": 7,
+      "defaults_keys": ["beschaeftigungsart"],
+      "computed_keys": [],
+      "reason": "Personenstammdaten. Keine Number-Felder, keine Datums-Paare, keine Preise. Keine berechenbaren Formeln."
+    },
+    "Kurse & Workshops": {
+      "placeholders_set": 14,
+      "defaults_keys": ["startdatum", "enddatum", "kurstyp", "status_kurs"],
+      "computed_keys": ["_kurs_dauer_stunden"],
+      "reason": "Datumspaar (startdatum/enddatum) mit virtueller Dauer-Berechnung für Aggregat-Anzeige. Preis ist Stammdatum (keine Berechnung). Keine applookups mit Preis-Target im Form."
+    },
+    "Teilnehmer": {
+      "placeholders_set": 12,
+      "defaults_keys": [],
+      "computed_keys": [],
+      "reason": "Personen-Stammdaten + Adresse + Notfallkontakt. Keine Number-Felder, keine Datums-Paare, keine Preise. Keine berechenbaren Formeln."
+    },
+    "Anmeldungen": {
+      "placeholders_set": 5,
+      "defaults_keys": ["anmeldedatum", "status_anmeldung"],
+      "computed_keys": [],
+      "reason": "Registrierung von Teilnehmern zu Kursen. Applookup auf Kurse hat zwar Preis in target_numeric_fields, aber kein separates Backend-Feld für Anmeldungsbetrag. Keine berechenbaren Formeln nötig."
+    },
+    "Zahlungen": {
+      "placeholders_set": 7,
+      "defaults_keys": ["zahlungsdatum", "zahlungsstatus"],
+      "computed_keys": [],
+      "reason": "Finanzerfassung von Zahlungsabrechnungen. Zahlungsbetrag ist manuelle Eingabe (User trägt ein). Kein applookup mit Preis-Target. Keine berechenbaren Formeln."
+    }
+  }
+}
