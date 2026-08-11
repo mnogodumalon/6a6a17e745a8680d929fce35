@@ -35,12 +35,122 @@ import {
   IconRefresh,
 } from '@tabler/icons-react';
 
-const STEPS = [
-  { label: 'Teilnehmer' },
-  { label: 'Kurs' },
-  { label: 'Anmeldung' },
-  { label: 'Zahlung' },
-];
+import { makeT } from '@/i18n';
+
+const tt = makeT({
+  de: {
+    teilnehmer: 'Teilnehmer',
+    kurs: 'Kurs',
+    anmeldung: 'Anmeldung',
+    zahlung: 'Zahlung',
+    vor_und_nachname_sind_pflichtfel: 'Vor- und Nachname sind Pflichtfelder.',
+    bitte_einen_gueltigen_betrag_ein: 'Bitte einen gültigen Betrag eingeben.',
+    teilnehmer_anmeldung: 'Teilnehmer-Anmeldung',
+    neuen_teilnehmer_anmelden_und_er: 'Neuen Teilnehmer anmelden und erste Zahlung erfassen',
+    kein_name: '(Kein Name)',
+    ort: 'Ort',
+    teilnehmer_suchen: 'Teilnehmer suchen...',
+    keine_teilnehmer_gefunden_lege_e: 'Keine Teilnehmer gefunden. Lege einen neuen an.',
+    neuen_teilnehmer_anlegen: 'Neuen Teilnehmer anlegen',
+    vorname: 'Vorname *',
+    vorname_2: 'Vorname',
+    nachname: 'Nachname *',
+    nachname_2: 'Nachname',
+    e_mail: 'E-Mail',
+    e_mail_adresse: 'E-Mail-Adresse',
+    telefon: 'Telefon',
+    telefonnummer: 'Telefonnummer',
+    wird_angelegt: 'Wird angelegt...',
+    anlegen_weiter: 'Anlegen & weiter',
+    abbrechen: 'Abbrechen',
+    teilnehmer_2: 'Teilnehmer:',
+    kein_titel: '(Kein Titel)',
+    preis: 'Preis',
+    freie_plaetze: 'Freie Plätze',
+    kurs_suchen: 'Kurs suchen...',
+    keine_aktiven_oder_geplanten_kur: 'Keine aktiven oder geplanten Kurse gefunden.',
+    zurueck: 'Zurück',
+    zusammenfassung: 'Zusammenfassung',
+    start: 'Start',
+    dozent: 'Dozent',
+    raum: 'Raum',
+    anmeldung_erfassen: 'Anmeldung erfassen',
+    anmeldedatum: 'Anmeldedatum',
+    status: 'Status',
+    bemerkungen_optional: 'Bemerkungen (optional)',
+    hinweise_zur_anmeldung: 'Hinweise zur Anmeldung...',
+    wird_erstellt: 'Wird erstellt...',
+    anmeldung_erstellen: 'Anmeldung erstellen',
+    zahlung_erfassen: 'Zahlung erfassen',
+    betrag: 'Betrag (€) *',
+    zahlungsdatum: 'Zahlungsdatum',
+    zahlungsart: 'Zahlungsart',
+    zahlungsstatus: 'Zahlungsstatus',
+    wird_gespeichert: 'Wird gespeichert...',
+    zahlung_speichern: 'Zahlung speichern',
+    anmeldung_abgeschlossen: 'Anmeldung abgeschlossen!',
+    wurde_erfolgreich_fuer: 'wurde erfolgreich für',
+    angemeldet_und_die_zahlung_wurde: 'angemeldet und die Zahlung wurde erfasst.',
+    neue_anmeldung: 'Neue Anmeldung',
+    zurueck_zum_dashboard: 'Zurück zum Dashboard',
+  },
+  en: {
+    teilnehmer: 'Participants',
+    kurs: 'Course',
+    anmeldung: 'Registration',
+    zahlung: 'Payment',
+    vor_und_nachname_sind_pflichtfel: 'First and last name are required fields.',
+    bitte_einen_gueltigen_betrag_ein: 'Please enter a valid amount.',
+    teilnehmer_anmeldung: 'Participant Registration',
+    neuen_teilnehmer_anmelden_und_er: 'Register new participant and record first payment',
+    kein_name: '(No Name)',
+    ort: 'Location',
+    teilnehmer_suchen: 'Search participants...',
+    keine_teilnehmer_gefunden_lege_e: 'No participants found. Create a new one.',
+    neuen_teilnehmer_anlegen: 'Create New Participant',
+    vorname: 'First Name *',
+    vorname_2: 'First Name',
+    nachname: 'Last Name *',
+    nachname_2: 'Last Name',
+    e_mail: 'E-Mail',
+    e_mail_adresse: 'Email Address',
+    telefon: 'Phone',
+    telefonnummer: 'Phone Number',
+    wird_angelegt: 'Creating...',
+    anlegen_weiter: 'Create & Continue',
+    abbrechen: 'Cancel',
+    teilnehmer_2: 'Participant:',
+    kein_titel: '(No Title)',
+    preis: 'Price',
+    freie_plaetze: 'Available Spots',
+    kurs_suchen: 'Search courses...',
+    keine_aktiven_oder_geplanten_kur: 'No active or scheduled courses found.',
+    zurueck: 'Back',
+    zusammenfassung: 'Summary',
+    start: 'Start',
+    dozent: 'Instructor',
+    raum: 'Room',
+    anmeldung_erfassen: 'Record Registration',
+    anmeldedatum: 'Registration Date',
+    status: 'Status',
+    bemerkungen_optional: 'Notes (optional)',
+    hinweise_zur_anmeldung: 'Notes on registration...',
+    wird_erstellt: 'Creating...',
+    anmeldung_erstellen: 'Create Registration',
+    zahlung_erfassen: 'Record Payment',
+    betrag: 'Amount (€) *',
+    zahlungsdatum: 'Payment Date',
+    zahlungsart: 'Payment Method',
+    zahlungsstatus: 'Payment Status',
+    wird_gespeichert: 'Saving...',
+    zahlung_speichern: 'Save Payment',
+    anmeldung_abgeschlossen: 'Registration Complete!',
+    wurde_erfolgreich_fuer: 'was successfully registered for',
+    angemeldet_und_die_zahlung_wurde: 'and the payment has been recorded.',
+    neue_anmeldung: 'New Registration',
+    zurueck_zum_dashboard: 'Back to Dashboard',
+  },
+});
 
 const TODAY = format(new Date(), 'yyyy-MM-dd');
 
@@ -59,6 +169,13 @@ function formatDate(value?: string): string {
 }
 
 export default function TeilnehmerAnmeldungPage() {
+  const STEPS = [
+  { label: tt('teilnehmer') },
+  { label: tt('kurs') },
+  { label: tt('anmeldung') },
+  { label: tt('zahlung') },
+];
+
   const {
     teilnehmer,
     kurseWorkshops,
@@ -136,7 +253,7 @@ export default function TeilnehmerAnmeldungPage() {
 
   async function handleCreateTeilnehmer() {
     if (!tnVorname.trim() || !tnNachname.trim()) {
-      setTnError('Vor- und Nachname sind Pflichtfelder.');
+      setTnError(tt('vor_und_nachname_sind_pflichtfel'));
       return;
     }
     setTnSaving(true);
@@ -217,7 +334,7 @@ export default function TeilnehmerAnmeldungPage() {
     if (!createdAnmeldungId) return;
     const betragNum = parseFloat(betrag.replace(',', '.'));
     if (isNaN(betragNum)) {
-      setZahlungError('Bitte einen gültigen Betrag eingeben.');
+      setZahlungError(tt('bitte_einen_gueltigen_betrag_ein'));
       return;
     }
     setZahlungSaving(true);
@@ -268,8 +385,8 @@ export default function TeilnehmerAnmeldungPage() {
 
   return (
     <IntentWizardShell
-      title="Teilnehmer-Anmeldung"
-      subtitle="Neuen Teilnehmer anmelden und erste Zahlung erfassen"
+      title={tt('teilnehmer_anmeldung')}
+      subtitle={tt('neuen_teilnehmer_anmelden_und_er')}
       steps={STEPS}
       currentStep={step}
       onStepChange={setStep}
@@ -283,61 +400,61 @@ export default function TeilnehmerAnmeldungPage() {
           <EntitySelectStep
             items={teilnehmer.map(t => ({
               id: t.record_id,
-              title: `${t.fields.vorname ?? ''} ${t.fields.nachname ?? ''}`.trim() || '(Kein Name)',
+              title: `${t.fields.vorname ?? ''} ${t.fields.nachname ?? ''}`.trim() || tt('kein_name'),
               subtitle: t.fields.email ?? undefined,
-              stats: t.fields.ort ? [{ label: 'Ort', value: t.fields.ort }] : undefined,
+              stats: t.fields.ort ? [{ label: tt('ort'), value: t.fields.ort }] : undefined,
               icon: <IconUser size={20} className="text-primary" />,
             }))}
             onSelect={handleSelectTeilnehmer}
-            searchPlaceholder="Teilnehmer suchen..."
+            searchPlaceholder={tt('teilnehmer_suchen')}
             emptyIcon={<IconUser size={32} />}
-            emptyText="Keine Teilnehmer gefunden. Lege einen neuen an."
-            createLabel="Neuen Teilnehmer anlegen"
+            emptyText={tt('keine_teilnehmer_gefunden_lege_e')}
+            createLabel={tt('neuen_teilnehmer_anlegen')}
             onCreateNew={() => setShowCreateTeilnehmer(prev => !prev)}
             createDialog={
               showCreateTeilnehmer ? (
                 <div className="rounded-2xl border bg-card p-5 space-y-4">
                   <div className="flex items-center gap-2 mb-1">
                     <IconUserPlus size={18} className="text-primary" />
-                    <span className="font-semibold text-sm">Neuen Teilnehmer anlegen</span>
+                    <span className="font-semibold text-sm">{tt('neuen_teilnehmer_anlegen')}</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <Label htmlFor="tn-vorname">Vorname *</Label>
+                      <Label htmlFor="tn-vorname">{tt('vorname')}</Label>
                       <Input
                         id="tn-vorname"
                         value={tnVorname}
                         onChange={e => setTnVorname(e.target.value)}
-                        placeholder="Vorname"
+                        placeholder={tt('vorname_2')}
                       />
                     </div>
                     <div className="space-y-1">
-                      <Label htmlFor="tn-nachname">Nachname *</Label>
+                      <Label htmlFor="tn-nachname">{tt('nachname')}</Label>
                       <Input
                         id="tn-nachname"
                         value={tnNachname}
                         onChange={e => setTnNachname(e.target.value)}
-                        placeholder="Nachname"
+                        placeholder={tt('nachname_2')}
                       />
                     </div>
                     <div className="space-y-1">
-                      <Label htmlFor="tn-email">E-Mail</Label>
+                      <Label htmlFor="tn-email">{tt('e_mail')}</Label>
                       <Input
                         id="tn-email"
                         type="email"
                         value={tnEmail}
                         onChange={e => setTnEmail(e.target.value)}
-                        placeholder="E-Mail-Adresse"
+                        placeholder={tt('e_mail_adresse')}
                       />
                     </div>
                     <div className="space-y-1">
-                      <Label htmlFor="tn-telefon">Telefon</Label>
+                      <Label htmlFor="tn-telefon">{tt('telefon')}</Label>
                       <Input
                         id="tn-telefon"
                         type="tel"
                         value={tnTelefon}
                         onChange={e => setTnTelefon(e.target.value)}
-                        placeholder="Telefonnummer"
+                        placeholder={tt('telefonnummer')}
                       />
                     </div>
                   </div>
@@ -351,13 +468,13 @@ export default function TeilnehmerAnmeldungPage() {
                       className="gap-1.5"
                     >
                       <IconUserPlus size={15} />
-                      {tnSaving ? 'Wird angelegt...' : 'Anlegen & weiter'}
+                      {(tnSaving ? tt('wird_angelegt') : tt('anlegen_weiter'))}
                     </Button>
                     <Button
                       variant="outline"
                       onClick={() => setShowCreateTeilnehmer(false)}
                     >
-                      Abbrechen
+                      {tt('abbrechen')}
                     </Button>
                   </div>
                 </div>
@@ -374,7 +491,7 @@ export default function TeilnehmerAnmeldungPage() {
             <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-secondary text-sm text-muted-foreground">
               <IconUser size={15} className="shrink-0" />
               <span>
-                Teilnehmer:{' '}
+                {tt('teilnehmer_2')}{' '}
                 <span className="font-medium text-foreground">
                   {selectedTeilnehmer.fields.vorname} {selectedTeilnehmer.fields.nachname}
                 </span>
@@ -389,7 +506,7 @@ export default function TeilnehmerAnmeldungPage() {
               const freie = Math.max(0, max - belegt);
               return {
                 id: k.record_id,
-                title: k.fields.titel ?? '(Kein Titel)',
+                title: k.fields.titel ?? tt('kein_titel'),
                 subtitle: [
                   k.fields.niveau?.label,
                   k.fields.kurstyp?.label,
@@ -400,21 +517,21 @@ export default function TeilnehmerAnmeldungPage() {
                   ? { key: k.fields.status_kurs.key, label: k.fields.status_kurs.label }
                   : undefined,
                 stats: [
-                  { label: 'Preis', value: formatEuro(k.fields.preis) },
-                  ...(max > 0 ? [{ label: 'Freie Plätze', value: freie }] : []),
+                  { label: tt('preis'), value: formatEuro(k.fields.preis) },
+                  ...(max > 0 ? [{ label: tt('freie_plaetze'), value: freie }] : []),
                 ],
                 icon: <IconBook size={20} className="text-primary" />,
               };
             })}
             onSelect={handleSelectKurs}
-            searchPlaceholder="Kurs suchen..."
+            searchPlaceholder={tt('kurs_suchen')}
             emptyIcon={<IconBook size={32} />}
-            emptyText="Keine aktiven oder geplanten Kurse gefunden."
+            emptyText={tt('keine_aktiven_oder_geplanten_kur')}
           />
 
           <div className="flex gap-2 pt-2">
             <Button variant="outline" onClick={() => setStep(1)}>
-              Zurück
+              {tt('zurueck')}
             </Button>
           </div>
         </div>
@@ -426,7 +543,7 @@ export default function TeilnehmerAnmeldungPage() {
           {/* Summary card */}
           <div className="rounded-2xl border bg-card p-5 space-y-3 overflow-hidden">
             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-              Zusammenfassung
+              {tt('zusammenfassung')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex items-start gap-3">
@@ -434,7 +551,7 @@ export default function TeilnehmerAnmeldungPage() {
                   <IconUser size={18} className="text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Teilnehmer</p>
+                  <p className="text-xs text-muted-foreground">{tt('teilnehmer')}</p>
                   <p className="font-medium text-sm truncate">
                     {selectedTeilnehmer.fields.vorname} {selectedTeilnehmer.fields.nachname}
                   </p>
@@ -450,7 +567,7 @@ export default function TeilnehmerAnmeldungPage() {
                   <IconBook size={18} className="text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-muted-foreground">Kurs</p>
+                  <p className="text-xs text-muted-foreground">{tt('kurs')}</p>
                   <p className="font-medium text-sm truncate">{selectedKurs.fields.titel}</p>
                   <p className="text-xs text-muted-foreground">
                     {formatEuro(selectedKurs.fields.preis)}
@@ -465,19 +582,19 @@ export default function TeilnehmerAnmeldungPage() {
               return enriched ? (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t text-xs">
                   <div>
-                    <p className="text-muted-foreground">Start</p>
+                    <p className="text-muted-foreground">{tt('start')}</p>
                     <p className="font-medium">{formatDate(enriched.fields.startdatum)}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Dozent</p>
+                    <p className="text-muted-foreground">{tt('dozent')}</p>
                     <p className="font-medium">{enriched.dozentName || '–'}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Raum</p>
+                    <p className="text-muted-foreground">{tt('raum')}</p>
                     <p className="font-medium">{enriched.raumName || '–'}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Preis</p>
+                    <p className="text-muted-foreground">{tt('preis')}</p>
                     <p className="font-medium">{formatEuro(enriched.fields.preis)}</p>
                   </div>
                 </div>
@@ -488,14 +605,14 @@ export default function TeilnehmerAnmeldungPage() {
           {/* Anmeldung form */}
           <div className="rounded-2xl border bg-card p-5 space-y-4 overflow-hidden">
             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-              Anmeldung erfassen
+              {tt('anmeldung_erfassen')}
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <Label htmlFor="anmeldedatum">
                   <IconCalendar size={13} className="inline mr-1" />
-                  Anmeldedatum
+                  {tt('anmeldedatum')}
                 </Label>
                 <Input
                   id="anmeldedatum"
@@ -506,7 +623,7 @@ export default function TeilnehmerAnmeldungPage() {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="status-anmeldung">Status</Label>
+                <Label htmlFor="status-anmeldung">{tt('status')}</Label>
                 <select
                   id="status-anmeldung"
                   value={statusAnmeldung}
@@ -523,12 +640,12 @@ export default function TeilnehmerAnmeldungPage() {
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor="bemerkungen-anmeldung">Bemerkungen (optional)</Label>
+              <Label htmlFor="bemerkungen-anmeldung">{tt('bemerkungen_optional')}</Label>
               <Textarea
                 id="bemerkungen-anmeldung"
                 value={bemerkungenAnmeldung}
                 onChange={e => setBemerkungenAnmeldung(e.target.value)}
-                placeholder="Hinweise zur Anmeldung..."
+                placeholder={tt('hinweise_zur_anmeldung')}
                 rows={3}
               />
             </div>
@@ -545,10 +662,10 @@ export default function TeilnehmerAnmeldungPage() {
               className="gap-1.5"
             >
               <IconCheck size={15} />
-              {anmeldungSaving ? 'Wird erstellt...' : 'Anmeldung erstellen'}
+              {(anmeldungSaving ? tt('wird_erstellt') : tt('anmeldung_erstellen'))}
             </Button>
             <Button variant="outline" onClick={() => setStep(2)}>
-              Zurück
+              {tt('zurueck')}
             </Button>
           </div>
         </div>
@@ -580,14 +697,14 @@ export default function TeilnehmerAnmeldungPage() {
           {/* Zahlung form */}
           <div className="rounded-2xl border bg-card p-5 space-y-4 overflow-hidden">
             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-              Zahlung erfassen
+              {tt('zahlung_erfassen')}
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <Label htmlFor="betrag">
                   <IconCurrencyEuro size={13} className="inline mr-1" />
-                  Betrag (€) *
+                  {tt('betrag')}
                 </Label>
                 <Input
                   id="betrag"
@@ -603,7 +720,7 @@ export default function TeilnehmerAnmeldungPage() {
               <div className="space-y-1">
                 <Label htmlFor="zahlungsdatum">
                   <IconCalendar size={13} className="inline mr-1" />
-                  Zahlungsdatum
+                  {tt('zahlungsdatum')}
                 </Label>
                 <Input
                   id="zahlungsdatum"
@@ -614,7 +731,7 @@ export default function TeilnehmerAnmeldungPage() {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="zahlungsart">Zahlungsart</Label>
+                <Label htmlFor="zahlungsart">{tt('zahlungsart')}</Label>
                 <select
                   id="zahlungsart"
                   value={zahlungsart}
@@ -632,7 +749,7 @@ export default function TeilnehmerAnmeldungPage() {
 
             {/* Zahlungsstatus als Radio-Tiles */}
             <div className="space-y-2">
-              <Label>Zahlungsstatus</Label>
+              <Label>{tt('zahlungsstatus')}</Label>
               <div className="flex flex-wrap gap-2">
                 {zahlungsstatusOptions.map(opt => (
                   <button
@@ -663,10 +780,10 @@ export default function TeilnehmerAnmeldungPage() {
               className="gap-1.5"
             >
               <IconCheck size={15} />
-              {zahlungSaving ? 'Wird gespeichert...' : 'Zahlung speichern'}
+              {(zahlungSaving ? tt('wird_gespeichert') : tt('zahlung_speichern'))}
             </Button>
             <Button variant="outline" onClick={() => setStep(3)}>
-              Zurück
+              {tt('zurueck')}
             </Button>
           </div>
         </div>
@@ -679,14 +796,13 @@ export default function TeilnehmerAnmeldungPage() {
             <IconCheck size={32} className="text-primary" stroke={2.5} />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">Anmeldung abgeschlossen!</h2>
+            <h2 className="text-xl font-bold text-foreground">{tt('anmeldung_abgeschlossen')}</h2>
             <p className="text-sm text-muted-foreground mt-1 max-w-sm">
-              {selectedTeilnehmer?.fields.vorname} {selectedTeilnehmer?.fields.nachname} wurde
-              erfolgreich für{' '}
+              {selectedTeilnehmer?.fields.vorname} {selectedTeilnehmer?.fields.nachname} {tt('wurde_erfolgreich_fuer')}{' '}
               <span className="font-medium text-foreground">
                 {selectedKurs?.fields.titel}
               </span>{' '}
-              angemeldet und die Zahlung wurde erfasst.
+              {tt('angemeldet_und_die_zahlung_wurde')}
             </p>
           </div>
 
@@ -703,10 +819,10 @@ export default function TeilnehmerAnmeldungPage() {
           <div className="flex flex-wrap gap-3 justify-center pt-2">
             <Button onClick={handleReset} className="gap-1.5">
               <IconRefresh size={15} />
-              Neue Anmeldung
+              {tt('neue_anmeldung')}
             </Button>
             <a href="#/">
-              <Button variant="outline">Zurück zum Dashboard</Button>
+              <Button variant="outline">{tt('zurueck_zum_dashboard')}</Button>
             </a>
           </div>
         </div>

@@ -25,12 +25,168 @@ import {
 } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 
-const WIZARD_STEPS = [
-  { label: 'Kurs-Details' },
-  { label: 'Dozent' },
-  { label: 'Raum' },
-  { label: 'Veröffentlichen' },
-];
+import { makeT } from '@/i18n';
+
+const tt = makeT({
+  de: {
+    kurs_details: 'Kurs-Details',
+    dozent: 'Dozent',
+    raum: 'Raum',
+    veroeffentlichen: 'Veröffentlichen',
+    vor_und_nachname_sind_erforderli: 'Vor- und Nachname sind erforderlich.',
+    raumname_ist_erforderlich: 'Raumname ist erforderlich.',
+    kurs_planen: 'Kurs planen',
+    neuen_kurs_oder_workshop_schritt: 'Neuen Kurs oder Workshop Schritt für Schritt anlegen und veröffentlichen',
+    grundlegende_informationen_zum_k: 'Grundlegende Informationen zum Kurs eingeben',
+    titel: 'Titel',
+    z_b_klavierkurs_fuer_anfaenger: 'z.B. Klavierkurs für Anfänger',
+    kurstyp: 'Kurstyp',
+    niveau: 'Niveau',
+    startdatum: 'Startdatum',
+    enddatum: 'Enddatum',
+    wochentage: 'Wochentage',
+    uhrzeit_beginn: 'Uhrzeit Beginn',
+    uhrzeit_ende: 'Uhrzeit Ende',
+    max_teilnehmer: 'Max. Teilnehmer',
+    preis: 'Preis (€)',
+    beschreibung_optional: 'Beschreibung (optional)',
+    kurzbeschreibung_des_angebots: 'Kurzbeschreibung des Angebots...',
+    weiter_dozent_waehlen: 'Weiter: Dozent wählen',
+    dozent_zuweisen: 'Dozent zuweisen',
+    wer_leitet_diesen_kurs: 'Wer leitet diesen Kurs?',
+    kein_name: '(Kein Name)',
+    dozenten_suchen: 'Dozenten suchen...',
+    kein_dozent_gefunden: 'Kein Dozent gefunden.',
+    neuen_dozenten_anlegen: 'Neuen Dozenten anlegen',
+    vorname: 'Vorname *',
+    vorname_2: 'Vorname',
+    nachname: 'Nachname *',
+    nachname_2: 'Nachname',
+    e_mail: 'E-Mail',
+    email_beispiel_de: 'email@beispiel.de',
+    instrumente: 'Instrumente',
+    beschaeftigungsart: 'Beschäftigungsart',
+    speichern: 'Speichern...',
+    dozent_anlegen: 'Dozent anlegen',
+    abbrechen: 'Abbrechen',
+    zurueck: 'Zurück',
+    weiter_raum_waehlen: 'Weiter: Raum wählen',
+    raum_auswaehlen: 'Raum auswählen',
+    wo_findet_der_kurs_statt: 'Wo findet der Kurs statt?',
+    benoetigte_kapazitaet: 'Benötigte Kapazität:',
+    personen: 'Personen.',
+    etage: 'Etage: {p0}',
+    kapazitaet: 'Kapazität',
+    raum_suchen: 'Raum suchen...',
+    kein_raum_gefunden: 'Kein Raum gefunden.',
+    neuen_raum_anlegen: 'Neuen Raum anlegen',
+    raumname: 'Raumname *',
+    z_b_uebungsraum_1: 'z.B. Übungsraum 1',
+    personenanzahl: 'Personenanzahl',
+    etage_2: 'Etage',
+    z_b_1_og: 'z.B. 1. OG',
+    raum_anlegen: 'Raum anlegen',
+    kapazitaet_2: 'Kapazität:',
+    etage_3: ' · Etage: {p0}',
+    raum_zu_klein_kapazitaet: 'Raum zu klein — Kapazität (',
+    liegt_unter_der_teilnehmerzahl: ') liegt unter der Teilnehmerzahl (',
+    weiter_veroeffentlichen: 'Weiter: Veröffentlichen',
+    zusammenfassung: 'Zusammenfassung',
+    bitte_alles_ueberpruefen_dann_de: 'Bitte alles überprüfen, dann den Kurs anlegen',
+    typ: 'Typ',
+    zeitraum: 'Zeitraum',
+    zeiten: 'Zeiten',
+    uhr: 'Uhr',
+    preis_2: 'Preis',
+    beschreibung: 'Beschreibung',
+    status_beim_anlegen: 'Status beim Anlegen',
+    wird_angelegt: 'Wird angelegt...',
+    kurs_anlegen: 'Kurs anlegen',
+    kurs_angelegt: 'Kurs angelegt!',
+    wurde_erfolgreich_erstellt_und_g: 'wurde erfolgreich erstellt und gespeichert.',
+    weiteren_kurs_planen: 'Weiteren Kurs planen',
+    zurueck_zum_dashboard: 'Zurück zum Dashboard',
+  },
+  en: {
+    kurs_details: 'Course Details',
+    dozent: 'Instructor',
+    raum: 'Room',
+    veroeffentlichen: 'Publish',
+    vor_und_nachname_sind_erforderli: 'First and last name are required.',
+    raumname_ist_erforderlich: 'Room name is required.',
+    kurs_planen: 'Schedule Course',
+    neuen_kurs_oder_workshop_schritt: 'Create and publish a new course or workshop step by step',
+    grundlegende_informationen_zum_k: 'Enter basic information about the course',
+    titel: 'Title',
+    z_b_klavierkurs_fuer_anfaenger: 'e.g. Piano Course for Beginners',
+    kurstyp: 'Course Type',
+    niveau: 'Level',
+    startdatum: 'Start Date',
+    enddatum: 'End Date',
+    wochentage: 'Weekdays',
+    uhrzeit_beginn: 'Start Time',
+    uhrzeit_ende: 'End Time',
+    max_teilnehmer: 'Max. Participants',
+    preis: 'Price (€)',
+    beschreibung_optional: 'Description (optional)',
+    kurzbeschreibung_des_angebots: 'Brief description of the offer...',
+    weiter_dozent_waehlen: 'Next: Select Instructor',
+    dozent_zuweisen: 'Assign Instructor',
+    wer_leitet_diesen_kurs: 'Who leads this course?',
+    kein_name: '(No Name)',
+    dozenten_suchen: 'Search instructors...',
+    kein_dozent_gefunden: 'No instructor found.',
+    neuen_dozenten_anlegen: 'Add New Instructor',
+    vorname: 'First Name *',
+    vorname_2: 'First Name',
+    nachname: 'Last Name *',
+    nachname_2: 'Last Name',
+    e_mail: 'E-Mail',
+    email_beispiel_de: 'email@example.com',
+    instrumente: 'Instruments',
+    beschaeftigungsart: 'Employment Type',
+    speichern: 'Saving...',
+    dozent_anlegen: 'Create Instructor',
+    abbrechen: 'Cancel',
+    zurueck: 'Back',
+    weiter_raum_waehlen: 'Next: Select Room',
+    raum_auswaehlen: 'Select Room',
+    wo_findet_der_kurs_statt: 'Where does the course take place?',
+    benoetigte_kapazitaet: 'Required Capacity:',
+    personen: 'Persons.',
+    etage: 'Floor: {p0}',
+    kapazitaet: 'Capacity',
+    raum_suchen: 'Search room...',
+    kein_raum_gefunden: 'No room found.',
+    neuen_raum_anlegen: 'Add New Room',
+    raumname: 'Room Name *',
+    z_b_uebungsraum_1: 'e.g. Practice Room 1',
+    personenanzahl: 'Number of Persons',
+    etage_2: 'Floor',
+    z_b_1_og: 'e.g. 1st Floor',
+    raum_anlegen: 'Create Room',
+    kapazitaet_2: 'Capacity:',
+    etage_3: ' · Floor: {p0}',
+    raum_zu_klein_kapazitaet: 'Room too small — capacity (',
+    liegt_unter_der_teilnehmerzahl: ') is below the number of participants (',
+    weiter_veroeffentlichen: 'Next: Publish',
+    zusammenfassung: 'Summary',
+    bitte_alles_ueberpruefen_dann_de: 'Please review everything, then create the course',
+    typ: 'Type',
+    zeitraum: 'Period',
+    zeiten: 'Times',
+    uhr: 'o\'clock',
+    preis_2: 'Price',
+    beschreibung: 'Description',
+    status_beim_anlegen: 'Status on Creation',
+    wird_angelegt: 'Creating...',
+    kurs_anlegen: 'Create Course',
+    kurs_angelegt: 'Course Created!',
+    wurde_erfolgreich_erstellt_und_g: 'was successfully created and saved.',
+    weiteren_kurs_planen: 'Schedule Another Course',
+    zurueck_zum_dashboard: 'Back to Dashboard',
+  },
+});
 
 interface KursForm {
   titel: string;
@@ -99,6 +255,13 @@ const INSTRUMENTE_OPTIONS = LOOKUP_OPTIONS['dozenten']['instrumente'] ?? [];
 const BESCHAEFTIGUNGSART_OPTIONS = LOOKUP_OPTIONS['dozenten']['beschaeftigungsart'] ?? [];
 
 export default function KursPlanungPage() {
+  const WIZARD_STEPS = [
+  { label: tt('kurs_details') },
+  { label: tt('dozent') },
+  { label: tt('raum') },
+  { label: tt('veroeffentlichen') },
+];
+
   const { dozenten, raeume, loading, error, fetchAll } = useDashboardData();
 
   const [step, setStep] = useState(1);
@@ -145,7 +308,7 @@ export default function KursPlanungPage() {
   // --- Step 2: Dozent creation ---
   const handleCreateDozent = async () => {
     if (!newDozentForm.vorname.trim() || !newDozentForm.nachname.trim()) {
-      setDozentError('Vor- und Nachname sind erforderlich.');
+      setDozentError(tt('vor_und_nachname_sind_erforderli'));
       return;
     }
     setDozentSaving(true);
@@ -191,7 +354,7 @@ export default function KursPlanungPage() {
   // --- Step 3: Raum creation ---
   const handleCreateRaum = async () => {
     if (!newRaumForm.raumname.trim()) {
-      setRaumError('Raumname ist erforderlich.');
+      setRaumError(tt('raumname_ist_erforderlich'));
       return;
     }
     setRaumSaving(true);
@@ -280,8 +443,8 @@ export default function KursPlanungPage() {
 
   return (
     <IntentWizardShell
-      title="Kurs planen"
-      subtitle="Neuen Kurs oder Workshop Schritt für Schritt anlegen und veröffentlichen"
+      title={tt('kurs_planen')}
+      subtitle={tt('neuen_kurs_oder_workshop_schritt')}
       steps={WIZARD_STEPS}
       currentStep={step}
       onStepChange={setStep}
@@ -298,20 +461,20 @@ export default function KursPlanungPage() {
                 <IconMusic size={20} className="text-primary" />
               </div>
               <div>
-                <h2 className="font-semibold text-foreground">Kurs-Details</h2>
-                <p className="text-sm text-muted-foreground">Grundlegende Informationen zum Kurs eingeben</p>
+                <h2 className="font-semibold text-foreground">{tt('kurs_details')}</h2>
+                <p className="text-sm text-muted-foreground">{tt('grundlegende_informationen_zum_k')}</p>
               </div>
             </div>
 
             {/* Titel */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-foreground">
-                Titel <span className="text-destructive">*</span>
+                {tt('titel')} <span className="text-destructive">*</span>
               </label>
               <Input
                 value={kursForm.titel}
                 onChange={e => setKursForm(prev => ({ ...prev, titel: e.target.value }))}
-                placeholder="z.B. Klavierkurs für Anfänger"
+                placeholder={tt('z_b_klavierkurs_fuer_anfaenger')}
                 className={formErrors.titel ? 'border-destructive' : ''}
               />
               {formErrors.titel && <p className="text-xs text-destructive">{formErrors.titel}</p>}
@@ -320,7 +483,7 @@ export default function KursPlanungPage() {
             {/* Kurstyp */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-foreground">
-                Kurstyp <span className="text-destructive">*</span>
+                {tt('kurstyp')} <span className="text-destructive">*</span>
               </label>
               <div className="flex flex-wrap gap-2">
                 {KURSTYP_OPTIONS.map(opt => (
@@ -344,7 +507,7 @@ export default function KursPlanungPage() {
 
             {/* Niveau */}
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-foreground">Niveau</label>
+              <label className="text-sm font-medium text-foreground">{tt('niveau')}</label>
               <div className="flex flex-wrap gap-2">
                 {NIVEAU_OPTIONS.map(opt => (
                   <button
@@ -368,7 +531,7 @@ export default function KursPlanungPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">
-                  Startdatum <span className="text-destructive">*</span>
+                  {tt('startdatum')} <span className="text-destructive">*</span>
                 </label>
                 <Input
                   type="datetime-local"
@@ -380,7 +543,7 @@ export default function KursPlanungPage() {
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">
-                  Enddatum <span className="text-destructive">*</span>
+                  {tt('enddatum')} <span className="text-destructive">*</span>
                 </label>
                 <Input
                   type="datetime-local"
@@ -394,7 +557,7 @@ export default function KursPlanungPage() {
 
             {/* Wochentage */}
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-foreground">Wochentage</label>
+              <label className="text-sm font-medium text-foreground">{tt('wochentage')}</label>
               <div className="flex flex-wrap gap-2">
                 {WOCHENTAG_OPTIONS.map(opt => (
                   <button
@@ -417,7 +580,7 @@ export default function KursPlanungPage() {
             {/* Uhrzeiten */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">Uhrzeit Beginn</label>
+                <label className="text-sm font-medium text-foreground">{tt('uhrzeit_beginn')}</label>
                 <Input
                   type="text"
                   value={kursForm.uhrzeit_beginn}
@@ -426,7 +589,7 @@ export default function KursPlanungPage() {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">Uhrzeit Ende</label>
+                <label className="text-sm font-medium text-foreground">{tt('uhrzeit_ende')}</label>
                 <Input
                   type="text"
                   value={kursForm.uhrzeit_ende}
@@ -439,7 +602,7 @@ export default function KursPlanungPage() {
             {/* Max. Teilnehmer & Preis */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">Max. Teilnehmer</label>
+                <label className="text-sm font-medium text-foreground">{tt('max_teilnehmer')}</label>
                 <Input
                   type="number"
                   min={1}
@@ -449,7 +612,7 @@ export default function KursPlanungPage() {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">Preis (€)</label>
+                <label className="text-sm font-medium text-foreground">{tt('preis')}</label>
                 <Input
                   type="number"
                   min={0}
@@ -463,11 +626,11 @@ export default function KursPlanungPage() {
 
             {/* Beschreibung */}
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-foreground">Beschreibung (optional)</label>
+              <label className="text-sm font-medium text-foreground">{tt('beschreibung_optional')}</label>
               <textarea
                 value={kursForm.beschreibung}
                 onChange={e => setKursForm(prev => ({ ...prev, beschreibung: e.target.value }))}
-                placeholder="Kurzbeschreibung des Angebots..."
+                placeholder={tt('kurzbeschreibung_des_angebots')}
                 rows={3}
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0 resize-none"
               />
@@ -481,7 +644,7 @@ export default function KursPlanungPage() {
               }}
               className="gap-2"
             >
-              Weiter: Dozent wählen
+              {tt('weiter_dozent_waehlen')}
             </Button>
           </div>
         </div>
@@ -496,15 +659,15 @@ export default function KursPlanungPage() {
                 <IconUser size={20} className="text-primary" />
               </div>
               <div>
-                <h2 className="font-semibold text-foreground">Dozent zuweisen</h2>
-                <p className="text-sm text-muted-foreground">Wer leitet diesen Kurs?</p>
+                <h2 className="font-semibold text-foreground">{tt('dozent_zuweisen')}</h2>
+                <p className="text-sm text-muted-foreground">{tt('wer_leitet_diesen_kurs')}</p>
               </div>
             </div>
 
             <EntitySelectStep
               items={dozenten.map(d => ({
                 id: d.record_id,
-                title: [d.fields.vorname, d.fields.nachname].filter(Boolean).join(' ') || '(Kein Name)',
+                title: [d.fields.vorname, d.fields.nachname].filter(Boolean).join(' ') || tt('kein_name'),
                 subtitle: d.fields.instrumente && d.fields.instrumente.length > 0
                   ? d.fields.instrumente.map(i => i.label).join(', ')
                   : undefined,
@@ -514,42 +677,42 @@ export default function KursPlanungPage() {
                 icon: <IconUser size={18} className="text-primary" />,
               }))}
               onSelect={handleSelectDozent}
-              searchPlaceholder="Dozenten suchen..."
-              emptyText="Kein Dozent gefunden."
-              createLabel="Neuen Dozenten anlegen"
+              searchPlaceholder={tt('dozenten_suchen')}
+              emptyText={tt('kein_dozent_gefunden')}
+              createLabel={tt('neuen_dozenten_anlegen')}
               onCreateNew={() => { setShowNewDozent(v => !v); }}
               createDialog={showNewDozent ? (
                 <div className="rounded-2xl border bg-secondary p-4 space-y-3">
-                  <h3 className="text-sm font-semibold text-foreground">Neuen Dozenten anlegen</h3>
+                  <h3 className="text-sm font-semibold text-foreground">{tt('neuen_dozenten_anlegen')}</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-muted-foreground">Vorname *</label>
+                      <label className="text-xs font-medium text-muted-foreground">{tt('vorname')}</label>
                       <Input
                         value={newDozentForm.vorname}
                         onChange={e => setNewDozentForm(prev => ({ ...prev, vorname: e.target.value }))}
-                        placeholder="Vorname"
+                        placeholder={tt('vorname_2')}
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-muted-foreground">Nachname *</label>
+                      <label className="text-xs font-medium text-muted-foreground">{tt('nachname')}</label>
                       <Input
                         value={newDozentForm.nachname}
                         onChange={e => setNewDozentForm(prev => ({ ...prev, nachname: e.target.value }))}
-                        placeholder="Nachname"
+                        placeholder={tt('nachname_2')}
                       />
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-medium text-muted-foreground">E-Mail</label>
+                    <label className="text-xs font-medium text-muted-foreground">{tt('e_mail')}</label>
                     <Input
                       type="email"
                       value={newDozentForm.email}
                       onChange={e => setNewDozentForm(prev => ({ ...prev, email: e.target.value }))}
-                      placeholder="email@beispiel.de"
+                      placeholder={tt('email_beispiel_de')}
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-medium text-muted-foreground">Instrumente</label>
+                    <label className="text-xs font-medium text-muted-foreground">{tt('instrumente')}</label>
                     <div className="flex flex-wrap gap-1.5">
                       {INSTRUMENTE_OPTIONS.map(opt => (
                         <button
@@ -574,7 +737,7 @@ export default function KursPlanungPage() {
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-medium text-muted-foreground">Beschäftigungsart</label>
+                    <label className="text-xs font-medium text-muted-foreground">{tt('beschaeftigungsart')}</label>
                     <div className="flex flex-wrap gap-1.5">
                       {BESCHAEFTIGUNGSART_OPTIONS.map(opt => (
                         <button
@@ -606,14 +769,14 @@ export default function KursPlanungPage() {
                       disabled={dozentSaving}
                       className="gap-1.5"
                     >
-                      {dozentSaving ? 'Speichern...' : 'Dozent anlegen'}
+                      {(dozentSaving ? tt('speichern') : tt('dozent_anlegen'))}
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
                       onClick={() => { setShowNewDozent(false); setNewDozentForm(DEFAULT_DOZENT_FORM); setDozentError(null); }}
                     >
-                      Abbrechen
+                      {tt('abbrechen')}
                     </Button>
                   </div>
                 </div>
@@ -649,13 +812,13 @@ export default function KursPlanungPage() {
           </div>
 
           <div className="flex justify-between">
-            <Button variant="outline" onClick={() => setStep(1)}>Zurück</Button>
+            <Button variant="outline" onClick={() => setStep(1)}>{tt('zurueck')}</Button>
             <Button
               onClick={() => setStep(3)}
               disabled={!selectedDozent}
               className="gap-2"
             >
-              Weiter: Raum wählen
+              {tt('weiter_raum_waehlen')}
             </Button>
           </div>
         </div>
@@ -670,11 +833,11 @@ export default function KursPlanungPage() {
                 <IconDoor size={20} className="text-primary" />
               </div>
               <div>
-                <h2 className="font-semibold text-foreground">Raum auswählen</h2>
+                <h2 className="font-semibold text-foreground">{tt('raum_auswaehlen')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Wo findet der Kurs statt?
+                  {tt('wo_findet_der_kurs_statt')}
                   {maxTeilnehmer > 0 && (
-                    <span className="ml-1">Benötigte Kapazität: <strong>{maxTeilnehmer}</strong> Personen.</span>
+                    <span className="ml-1">{tt('benoetigte_kapazitaet')} <strong>{maxTeilnehmer}</strong> {tt('personen')}</span>
                   )}
                 </p>
               </div>
@@ -685,10 +848,10 @@ export default function KursPlanungPage() {
                 const tooSmall = maxTeilnehmer > 0 && (r.fields.kapazitaet ?? 0) < maxTeilnehmer;
                 return {
                   id: r.record_id,
-                  title: r.fields.raumname ?? '(Kein Name)',
-                  subtitle: r.fields.etage ? `Etage: ${r.fields.etage}` : undefined,
+                  title: r.fields.raumname ?? tt('kein_name'),
+                  subtitle: r.fields.etage ? tt('etage', { p0: r.fields.etage }) : undefined,
                   stats: [
-                    { label: 'Kapazität', value: r.fields.kapazitaet ?? '–' },
+                    { label: tt('kapazitaet'), value: r.fields.kapazitaet ?? '–' },
                     ...(tooSmall ? [{ label: '', value: '⚠ Zu klein' }] : []),
                   ],
                   status: r.fields.verfuegbarkeit
@@ -698,38 +861,38 @@ export default function KursPlanungPage() {
                 };
               })}
               onSelect={handleSelectRaum}
-              searchPlaceholder="Raum suchen..."
-              emptyText="Kein Raum gefunden."
-              createLabel="Neuen Raum anlegen"
+              searchPlaceholder={tt('raum_suchen')}
+              emptyText={tt('kein_raum_gefunden')}
+              createLabel={tt('neuen_raum_anlegen')}
               onCreateNew={() => { setShowNewRaum(v => !v); }}
               createDialog={showNewRaum ? (
                 <div className="rounded-2xl border bg-secondary p-4 space-y-3">
-                  <h3 className="text-sm font-semibold text-foreground">Neuen Raum anlegen</h3>
+                  <h3 className="text-sm font-semibold text-foreground">{tt('neuen_raum_anlegen')}</h3>
                   <div className="space-y-1">
-                    <label className="text-xs font-medium text-muted-foreground">Raumname *</label>
+                    <label className="text-xs font-medium text-muted-foreground">{tt('raumname')}</label>
                     <Input
                       value={newRaumForm.raumname}
                       onChange={e => setNewRaumForm(prev => ({ ...prev, raumname: e.target.value }))}
-                      placeholder="z.B. Übungsraum 1"
+                      placeholder={tt('z_b_uebungsraum_1')}
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-muted-foreground">Kapazität</label>
+                      <label className="text-xs font-medium text-muted-foreground">{tt('kapazitaet')}</label>
                       <Input
                         type="number"
                         min={1}
                         value={newRaumForm.kapazitaet}
                         onChange={e => setNewRaumForm(prev => ({ ...prev, kapazitaet: e.target.value === '' ? '' : Number(e.target.value) }))}
-                        placeholder="Personenanzahl"
+                        placeholder={tt('personenanzahl')}
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-xs font-medium text-muted-foreground">Etage</label>
+                      <label className="text-xs font-medium text-muted-foreground">{tt('etage_2')}</label>
                       <Input
                         value={newRaumForm.etage}
                         onChange={e => setNewRaumForm(prev => ({ ...prev, etage: e.target.value }))}
-                        placeholder="z.B. 1. OG"
+                        placeholder={tt('z_b_1_og')}
                       />
                     </div>
                   </div>
@@ -743,14 +906,14 @@ export default function KursPlanungPage() {
                       disabled={raumSaving}
                       className="gap-1.5"
                     >
-                      {raumSaving ? 'Speichern...' : 'Raum anlegen'}
+                      {(raumSaving ? tt('speichern') : tt('raum_anlegen'))}
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
                       onClick={() => { setShowNewRaum(false); setNewRaumForm(DEFAULT_RAUM_FORM); setRaumError(null); }}
                     >
-                      Abbrechen
+                      {tt('abbrechen')}
                     </Button>
                   </div>
                 </div>
@@ -779,12 +942,12 @@ export default function KursPlanungPage() {
                   <div className="min-w-0">
                     <p className="text-sm font-semibold text-foreground">{selectedRaum.fields.raumname}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      Kapazität: {selectedRaum.fields.kapazitaet ?? '–'}
-                      {selectedRaum.fields.etage && ` · Etage: ${selectedRaum.fields.etage}`}
+                      {tt('kapazitaet_2')} {selectedRaum.fields.kapazitaet ?? '–'}
+                      {selectedRaum.fields.etage && tt('etage_3', { p0: selectedRaum.fields.etage })}
                     </p>
                     {tooSmall && (
                       <p className="text-xs font-medium text-amber-700 mt-1">
-                        Raum zu klein — Kapazität ({selectedRaum.fields.kapazitaet ?? 0}) liegt unter der Teilnehmerzahl ({maxTeilnehmer})
+                        {tt('raum_zu_klein_kapazitaet')}{selectedRaum.fields.kapazitaet ?? 0}{tt('liegt_unter_der_teilnehmerzahl')}{maxTeilnehmer})
                       </p>
                     )}
                   </div>
@@ -794,13 +957,13 @@ export default function KursPlanungPage() {
           </div>
 
           <div className="flex justify-between">
-            <Button variant="outline" onClick={() => setStep(2)}>Zurück</Button>
+            <Button variant="outline" onClick={() => setStep(2)}>{tt('zurueck')}</Button>
             <Button
               onClick={() => setStep(4)}
               disabled={!selectedRaum}
               className="gap-2"
             >
-              Weiter: Veröffentlichen
+              {tt('weiter_veroeffentlichen')}
             </Button>
           </div>
         </div>
@@ -816,30 +979,30 @@ export default function KursPlanungPage() {
                 <IconCalendarPlus size={20} className="text-primary" />
               </div>
               <div>
-                <h2 className="font-semibold text-foreground">Zusammenfassung</h2>
-                <p className="text-sm text-muted-foreground">Bitte alles überprüfen, dann den Kurs anlegen</p>
+                <h2 className="font-semibold text-foreground">{tt('zusammenfassung')}</h2>
+                <p className="text-sm text-muted-foreground">{tt('bitte_alles_ueberpruefen_dann_de')}</p>
               </div>
             </div>
 
             <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Titel</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('titel')}</dt>
                 <dd className="font-semibold text-foreground mt-0.5 truncate">{kursForm.titel || '–'}</dd>
               </div>
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Typ</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('typ')}</dt>
                 <dd className="text-foreground mt-0.5">
                   {KURSTYP_OPTIONS.find(o => o.key === kursForm.kursTypKey)?.label ?? '–'}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Niveau</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('niveau')}</dt>
                 <dd className="text-foreground mt-0.5">
                   {NIVEAU_OPTIONS.find(o => o.key === kursForm.niveauKey)?.label ?? '–'}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Zeitraum</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('zeitraum')}</dt>
                 <dd className="text-foreground mt-0.5">
                   {kursForm.startdatum ? kursForm.startdatum.replace('T', ' ') : '–'}
                   {kursForm.enddatum ? ` – ${kursForm.enddatum.replace('T', ' ')}` : ''}
@@ -847,7 +1010,7 @@ export default function KursPlanungPage() {
               </div>
               {kursForm.wochentag.length > 0 && (
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Wochentage</dt>
+                  <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('wochentage')}</dt>
                   <dd className="text-foreground mt-0.5">
                     {kursForm.wochentag.map(k => WOCHENTAG_OPTIONS.find(o => o.key === k)?.label ?? k).join(', ')}
                   </dd>
@@ -855,14 +1018,14 @@ export default function KursPlanungPage() {
               )}
               {(kursForm.uhrzeit_beginn || kursForm.uhrzeit_ende) && (
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Zeiten</dt>
+                  <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('zeiten')}</dt>
                   <dd className="text-foreground mt-0.5">
-                    {kursForm.uhrzeit_beginn || '?'} – {kursForm.uhrzeit_ende || '?'} Uhr
+                    {kursForm.uhrzeit_beginn || '?'} – {kursForm.uhrzeit_ende || '?'} {tt('uhr')}
                   </dd>
                 </div>
               )}
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Dozent</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('dozent')}</dt>
                 <dd className="text-foreground mt-0.5 font-medium">
                   {selectedDozent
                     ? [selectedDozent.fields.vorname, selectedDozent.fields.nachname].filter(Boolean).join(' ')
@@ -870,17 +1033,17 @@ export default function KursPlanungPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Raum</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('raum')}</dt>
                 <dd className="text-foreground mt-0.5 font-medium">{selectedRaum?.fields.raumname ?? '–'}</dd>
               </div>
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Preis</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('preis_2')}</dt>
                 <dd className="text-foreground mt-0.5">
                   {kursForm.preis !== '' ? `${kursForm.preis} €` : '–'}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Max. Teilnehmer</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('max_teilnehmer')}</dt>
                 <dd className="text-foreground mt-0.5">
                   {kursForm.max_teilnehmer !== '' ? kursForm.max_teilnehmer : '–'}
                 </dd>
@@ -889,7 +1052,7 @@ export default function KursPlanungPage() {
 
             {kursForm.beschreibung && (
               <div>
-                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Beschreibung</dt>
+                <dt className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{tt('beschreibung')}</dt>
                 <dd className="text-sm text-foreground mt-1 whitespace-pre-wrap">{kursForm.beschreibung}</dd>
               </div>
             )}
@@ -897,7 +1060,7 @@ export default function KursPlanungPage() {
 
           {/* Status-Auswahl */}
           <div className="rounded-2xl border bg-card p-6 space-y-3">
-            <h3 className="text-sm font-semibold text-foreground">Status beim Anlegen</h3>
+            <h3 className="text-sm font-semibold text-foreground">{tt('status_beim_anlegen')}</h3>
             <div className="flex flex-wrap gap-2">
               {STATUS_KURS_OPTIONS.map(opt => (
                 <button
@@ -925,13 +1088,13 @@ export default function KursPlanungPage() {
           )}
 
           <div className="flex justify-between">
-            <Button variant="outline" onClick={() => setStep(3)}>Zurück</Button>
+            <Button variant="outline" onClick={() => setStep(3)}>{tt('zurueck')}</Button>
             <Button
               onClick={handleCreateKurs}
               disabled={saving || !selectedDozent || !selectedRaum}
               className="gap-2"
             >
-              {saving ? 'Wird angelegt...' : 'Kurs anlegen'}
+              {(saving ? tt('wird_angelegt') : tt('kurs_anlegen'))}
             </Button>
           </div>
         </div>
@@ -944,19 +1107,19 @@ export default function KursPlanungPage() {
             <IconCheck size={28} className="text-green-600" stroke={2.5} />
           </div>
           <div className="text-center">
-            <h2 className="text-xl font-bold text-foreground">Kurs angelegt!</h2>
+            <h2 className="text-xl font-bold text-foreground">{tt('kurs_angelegt')}</h2>
             <p className="text-sm text-muted-foreground mt-1 max-w-xs">
-              <strong>„{savedTitel}"</strong> wurde erfolgreich erstellt und gespeichert.
+              <strong>„{savedTitel}"</strong> {tt('wurde_erfolgreich_erstellt_und_g')}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button onClick={handleReset} className="gap-2">
               <IconRefresh size={16} />
-              Weiteren Kurs planen
+              {tt('weiteren_kurs_planen')}
             </Button>
             <a href="#/">
               <Button variant="outline" className="w-full gap-2">
-                Zurück zum Dashboard
+                {tt('zurueck_zum_dashboard')}
               </Button>
             </a>
           </div>

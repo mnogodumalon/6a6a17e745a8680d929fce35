@@ -38,6 +38,69 @@ import {
   IconCheck,
 } from '@tabler/icons-react';
 
+import { makeT } from '@/i18n';
+
+const tt = makeT({
+  de: {
+    kurs: 'Kurs',
+    anmeldung_abgeschlossen: 'Anmeldung abgeschlossen',
+    zahlung_als_bezahlt_markiert: 'Zahlung als bezahlt markiert',
+    diese_woche_startet: 'Diese Woche startet {p0}.',
+    diese_woche_starten: 'Diese Woche starten {p0}.',
+    aktive_anmeldungen_im_system: '{p0} aktive Anmeldungen im System.',
+    aktive_anmeldung_im_system: '{p0} aktive Anmeldung im System.',
+    noch_keine_kurse_geplant_leg_gle: 'Noch keine Kurse geplant — leg gleich los!',
+    kurs_anlegen: 'Kurs anlegen',
+    dozent_zuweisen: 'Dozent zuweisen',
+    diese_woche_ohne_dozent: 'diese Woche ohne Dozent.',
+    aktive_kurse: 'Aktive Kurse',
+    anmeldungen: 'Anmeldungen',
+    ausstehende_zahlungen: 'Ausstehende Zahlungen',
+    diese_woche: 'Diese Woche',
+    kurs_verschoben: 'Kurs verschoben',
+    neue_anmeldungen: 'Neue Anmeldungen',
+    unbekannt: 'Unbekannt',
+    abschliessen: '✓ Abschließen',
+    keine_neuen_anmeldungen_in_den_l: 'Keine neuen Anmeldungen in den letzten 7 Tagen',
+    anmeldung_erfassen: 'Anmeldung erfassen',
+    bezahlt: '✓ Bezahlt',
+    alle_zahlungen_beglichen_super: 'Alle Zahlungen beglichen — super!',
+    zahlung: 'Zahlung',
+    raum: 'Raum',
+    personen: '{p0} Personen',
+    als_bezahlt_markieren: '✓ Als bezahlt markieren',
+  },
+  en: {
+    kurs: 'Course',
+    anmeldung_abgeschlossen: 'Registration Completed',
+    zahlung_als_bezahlt_markiert: 'Payment Marked as Paid',
+    diese_woche_startet: 'This week {p0} starts.',
+    diese_woche_starten: 'This week {p0} start.',
+    aktive_anmeldungen_im_system: '{p0} active registrations in the system.',
+    aktive_anmeldung_im_system: '{p0} active registration in the system.',
+    noch_keine_kurse_geplant_leg_gle: 'No courses scheduled yet — get started!',
+    kurs_anlegen: 'Create Course',
+    dozent_zuweisen: 'Assign Instructor',
+    diese_woche_ohne_dozent: 'this week without an instructor.',
+    aktive_kurse: 'Active Courses',
+    anmeldungen: 'Registrations',
+    ausstehende_zahlungen: 'Pending Payments',
+    diese_woche: 'This Week',
+    kurs_verschoben: 'Course Rescheduled',
+    neue_anmeldungen: 'New Registrations',
+    unbekannt: 'Unknown',
+    abschliessen: '✓ Complete',
+    keine_neuen_anmeldungen_in_den_l: 'No new registrations in the last 7 days',
+    anmeldung_erfassen: 'Record Registration',
+    bezahlt: '✓ Paid',
+    alle_zahlungen_beglichen_super: 'All payments settled — great!',
+    zahlung: 'Payment',
+    raum: 'Room',
+    personen: '{p0} Persons',
+    als_bezahlt_markieren: '✓ Mark as Paid',
+  },
+});
+
 // Overlay item type
 type OverlayItem =
   | { type: 'kurs'; id: string }
@@ -83,7 +146,7 @@ export default function DashboardOverview() {
           id: `kurs:${k.record_id}`,
           start: k.fields.startdatum!,
           end: k.fields.enddatum,
-          title: k.fields.titel ?? 'Kurs',
+          title: k.fields.titel ?? tt('kurs'),
           subtitle: k.dozentName ?? k.fields.uhrzeit_beginn,
           tone,
         };
@@ -134,7 +197,7 @@ export default function DashboardOverview() {
     fetchAll();
     try {
       await LivingAppsService.updateAnmeldungenEntry(a.record_id, { status_anmeldung: 'abgeschlossen' });
-      undoToast('Anmeldung abgeschlossen', async () => {
+      undoToast(tt('anmeldung_abgeschlossen'), async () => {
         await LivingAppsService.updateAnmeldungenEntry(a.record_id, { status_anmeldung: prev ?? 'angemeldet' });
         fetchAll();
       });
@@ -149,7 +212,7 @@ export default function DashboardOverview() {
     const prev = z.fields.zahlungsstatus?.key;
     try {
       await LivingAppsService.updateZahlungenEntry(z.record_id, { zahlungsstatus: 'bezahlt' });
-      undoToast('Zahlung als bezahlt markiert', async () => {
+      undoToast(tt('zahlung_als_bezahlt_markiert'), async () => {
         await LivingAppsService.updateZahlungenEntry(z.record_id, { zahlungsstatus: prev ?? 'ausstehend' });
         fetchAll();
       });
@@ -169,10 +232,8 @@ export default function DashboardOverview() {
   // Context line
   const kursNamen = namen(kurseThisWeek.map(k => k.fields.titel ?? ''));
   const contextLine = kurseThisWeek.length > 0
-    ? `Diese Woche ${kurseThisWeek.length === 1 ? 'startet' : 'starten'} ${kursNamen}.`
-    : aktuelleAnmeldungen.length > 0
-    ? `${aktuelleAnmeldungen.length} aktive Anmeldung${aktuelleAnmeldungen.length !== 1 ? 'en' : ''} im System.`
-    : 'Noch keine Kurse geplant — leg gleich los!';
+    ? (kurseThisWeek.length === 1 ? tt('diese_woche_startet', { p0: kursNamen }) : tt('diese_woche_starten', { p0: kursNamen }))
+    : (aktuelleAnmeldungen.length > 0 ? aktuelleAnmeldungen.length !== 1 ? tt('aktive_anmeldungen_im_system', { p0: aktuelleAnmeldungen.length }) : tt('aktive_anmeldung_im_system', { p0: aktuelleAnmeldungen.length }) : tt('noch_keine_kurse_geplant_leg_gle'));
 
   // Lookup helpers for overlay rendering
   const findKurs = (id: string) => kurseWorkshops.find(k => k.record_id === id);
@@ -194,7 +255,7 @@ export default function DashboardOverview() {
             className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
             <IconPlus size={16} className="shrink-0" />
-            Kurs anlegen
+            {tt('kurs_anlegen')}
           </button>
         </div>
       </div>
@@ -205,34 +266,34 @@ export default function DashboardOverview() {
           ohneDozent.length > 0 ? (
             <HeroBanner
               icon={<IconAlertTriangle size={18} />}
-              action={{ label: 'Dozent zuweisen', onClick: rescueKurs }}
+              action={{ label: tt('dozent_zuweisen'), onClick: rescueKurs }}
             >
               <b>{namen(ohneDozent.map(k => k.fields.titel ?? ''))}</b>{' '}
-              {ohneDozent.length === 1 ? 'startet' : 'starten'} diese Woche ohne Dozent.
+              {ohneDozent.length === 1 ? 'startet' : 'starten'} {tt('diese_woche_ohne_dozent')}
             </HeroBanner>
           ) : undefined
         }
         kpis={
           <StatStrip>
             <StatStripItem
-              title="Aktive Kurse"
+              title={tt('aktive_kurse')}
               value={activeKurse.length}
               icon={<IconMusic size={16} />}
               tone="default"
             />
             <StatStripItem
-              title="Anmeldungen"
+              title={tt('anmeldungen')}
               value={aktuelleAnmeldungen.length}
               icon={<IconCheck size={16} />}
               tone={aktuelleAnmeldungen.length > 0 ? 'success' : 'default'}
             />
             <StatStripItem
-              title="Ausstehende Zahlungen"
+              title={tt('ausstehende_zahlungen')}
               value={ausstehendZahlungen.length}
               tone={ausstehendZahlungen.length > 0 ? 'warning' : 'default'}
             />
             <StatStripItem
-              title="Diese Woche"
+              title={tt('diese_woche')}
               value={kurseThisWeek.length}
               tone={kurseThisWeek.length > 0 ? 'primary' : 'default'}
             />
@@ -268,7 +329,7 @@ export default function DashboardOverview() {
                   startdatum: newStart,
                   ...(newEnd ? { enddatum: newEnd } : {}),
                 });
-                undoToast('Kurs verschoben', async () => {
+                undoToast(tt('kurs_verschoben'), async () => {
                   const orig = findKurs(rid);
                   if (orig) {
                     await LivingAppsService.updateKurseWorkshop(rid, {
@@ -288,14 +349,14 @@ export default function DashboardOverview() {
         aside={
           <>
             <WorkList
-              title="Neue Anmeldungen"
+              title={tt('neue_anmeldungen')}
               max={6}
               items={neueAnmeldungen.map(a => {
                 const tnName = [
                   teilnehmer.find(t => t.record_id === extractRecordId(a.fields.teilnehmer))?.fields.vorname,
                   teilnehmer.find(t => t.record_id === extractRecordId(a.fields.teilnehmer))?.fields.nachname,
-                ].filter(Boolean).join(' ') || 'Unbekannt';
-                const kursTitle = kurseWorkshops.find(k => k.record_id === extractRecordId(a.fields.kurs))?.fields.titel ?? 'Kurs';
+                ].filter(Boolean).join(' ') || tt('unbekannt');
+                const kursTitle = kurseWorkshops.find(k => k.record_id === extractRecordId(a.fields.kurs))?.fields.titel ?? tt('kurs');
                 return {
                   id: a.record_id,
                   title: tnName,
@@ -308,19 +369,19 @@ export default function DashboardOverview() {
                     </>
                   ),
                   action: {
-                    label: '✓ Abschließen',
+                    label: tt('abschliessen'),
                     onClick: () => advanceAnmeldung(a),
                   },
                 };
               })}
               onItemClick={id => overlay.replace({ type: 'anmeldung', id })}
               empty={{
-                text: 'Keine neuen Anmeldungen in den letzten 7 Tagen',
-                action: { label: 'Anmeldung erfassen', onClick: () => setAnmeldungDialog({ open: true }) },
+                text: tt('keine_neuen_anmeldungen_in_den_l'),
+                action: { label: tt('anmeldung_erfassen'), onClick: () => setAnmeldungDialog({ open: true }) },
               }}
             />
             <WorkList
-              title="Ausstehende Zahlungen"
+              title={tt('ausstehende_zahlungen')}
               max={5}
               items={ausstehendZahlungen.map(z => {
                 const anmeldung = anmeldungen.find(a => a.record_id === extractRecordId(z.fields.anmeldung));
@@ -329,7 +390,7 @@ export default function DashboardOverview() {
                   ? [
                     teilnehmer.find(t => t.record_id === tnId)?.fields.vorname,
                     teilnehmer.find(t => t.record_id === tnId)?.fields.nachname,
-                  ].filter(Boolean).join(' ') || 'Unbekannt'
+                  ].filter(Boolean).join(' ') || tt('unbekannt')
                   : 'Unbekannt';
                 const betrag = z.fields.betrag != null ? `${z.fields.betrag} €` : '';
                 return {
@@ -344,14 +405,14 @@ export default function DashboardOverview() {
                     </>
                   ),
                   action: {
-                    label: '✓ Bezahlt',
+                    label: tt('bezahlt'),
                     onClick: () => markZahlungBezahlt(z),
                   },
                 };
               })}
               onItemClick={id => overlay.replace({ type: 'zahlung', id })}
               empty={{
-                text: 'Alle Zahlungen beglichen — super!',
+                text: tt('alle_zahlungen_beglichen_super'),
               }}
             />
           </>
@@ -425,7 +486,7 @@ export default function DashboardOverview() {
             return (
               <>
                 <RecordHeader
-                  title={k.fields.titel ?? 'Kurs'}
+                  title={k.fields.titel ?? tt('kurs')}
                   subtitle={k.fields.kurstyp?.label}
                   meta={k.fields.startdatum ? formatDate(k.fields.startdatum) : undefined}
                   badges={
@@ -480,7 +541,7 @@ export default function DashboardOverview() {
             return (
               <>
                 <RecordHeader
-                  title={z.fields.rechnungsnummer ?? 'Zahlung'}
+                  title={z.fields.rechnungsnummer ?? tt('zahlung')}
                   subtitle={z.fields.zahlungsart?.label}
                   meta={z.fields.zahlungsdatum ? formatDate(z.fields.zahlungsdatum) : undefined}
                 />
@@ -516,9 +577,9 @@ export default function DashboardOverview() {
             return (
               <>
                 <RecordHeader
-                  title={r.fields.raumname ?? 'Raum'}
+                  title={r.fields.raumname ?? tt('raum')}
                   subtitle={r.fields.etage}
-                  meta={r.fields.kapazitaet != null ? `${r.fields.kapazitaet} Personen` : undefined}
+                  meta={r.fields.kapazitaet != null ? tt('personen', { p0: r.fields.kapazitaet }) : undefined}
                 />
                 <RaeumeDetails
                   record={r}
@@ -566,13 +627,13 @@ export default function DashboardOverview() {
           if (top.type === 'anmeldung') {
             const a = findAnmeldung(top.id);
             if (a && a.fields.status_anmeldung?.key === 'angemeldet') {
-              return { label: '✓ Abschließen', onClick: () => { void advanceAnmeldung(enrichedAnmeldungen.find(ea => ea.record_id === a.record_id)!); overlay.close(); } };
+              return { label: tt('abschliessen'), onClick: () => { void advanceAnmeldung(enrichedAnmeldungen.find(ea => ea.record_id === a.record_id)!); overlay.close(); } };
             }
           }
           if (top.type === 'zahlung') {
             const z = findZahlung(top.id);
             if (z && (z.fields.zahlungsstatus?.key === 'ausstehend' || z.fields.zahlungsstatus?.key === 'teilbezahlt')) {
-              return { label: '✓ Als bezahlt markieren', onClick: () => { void markZahlungBezahlt(enrichedZahlungen.find(ez => ez.record_id === z.record_id)!); overlay.close(); } };
+              return { label: tt('als_bezahlt_markieren'), onClick: () => { void markZahlungBezahlt(enrichedZahlungen.find(ez => ez.record_id === z.record_id)!); overlay.close(); } };
             }
           }
           return undefined;
