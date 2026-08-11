@@ -31,6 +31,40 @@ import { RaeumeDetails } from '@/components/details/RaeumeDetails';
 import { TeilnehmerDetails } from '@/components/details/TeilnehmerDetails';
 import { AI_PHOTO_SCAN, AI_PHOTO_LOCATION } from '@/config/ai-features';
 import { useClock, gruss, namen, undoToast } from '@/lib/polish';
+import { makeT } from '@/i18n';
+
+const tt = makeT({
+  de: {
+    kurs_anlegen: 'Kurs anlegen',
+    dozent_zuweisen: 'Dozent zuweisen',
+    aktive_kurse: 'Aktive Kurse',
+    anmeldungen: 'Anmeldungen',
+    ausstehende_zahlungen: 'Ausstehende Zahlungen',
+    diese_woche: 'Diese Woche',
+    neue_anmeldungen: 'Neue Anmeldungen',
+    abschliessen: '✓ Abschließen',
+    anmeldung_erfassen: 'Anmeldung erfassen',
+    keine_neuen_anmeldungen: 'Keine neuen Anmeldungen in den letzten 7 Tagen',
+    bezahlt: '✓ Bezahlt',
+    alle_zahlungen_beglichen: 'Alle Zahlungen beglichen — super!',
+    als_bezahlt_markieren: '✓ Als bezahlt markieren',
+  },
+  en: {
+    kurs_anlegen: 'Create course',
+    dozent_zuweisen: 'Assign instructor',
+    aktive_kurse: 'Active courses',
+    anmeldungen: 'Registrations',
+    ausstehende_zahlungen: 'Pending payments',
+    diese_woche: 'This week',
+    neue_anmeldungen: 'New registrations',
+    abschliessen: '✓ Complete',
+    anmeldung_erfassen: 'Add registration',
+    keine_neuen_anmeldungen: 'No new registrations in the last 7 days',
+    bezahlt: '✓ Paid',
+    alle_zahlungen_beglichen: 'All payments settled — great!',
+    als_bezahlt_markieren: '✓ Mark as paid',
+  },
+});
 import {
   IconMusic,
   IconPlus,
@@ -194,7 +228,7 @@ export default function DashboardOverview() {
             className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
             <IconPlus size={16} className="shrink-0" />
-            Kurs anlegen
+            {tt('kurs_anlegen')}
           </button>
         </div>
       </div>
@@ -205,7 +239,7 @@ export default function DashboardOverview() {
           ohneDozent.length > 0 ? (
             <HeroBanner
               icon={<IconAlertTriangle size={18} />}
-              action={{ label: 'Dozent zuweisen', onClick: rescueKurs }}
+              action={{ label: tt('dozent_zuweisen'), onClick: rescueKurs }}
             >
               <b>{namen(ohneDozent.map(k => k.fields.titel ?? ''))}</b>{' '}
               {ohneDozent.length === 1 ? 'startet' : 'starten'} diese Woche ohne Dozent.
@@ -215,24 +249,24 @@ export default function DashboardOverview() {
         kpis={
           <StatStrip>
             <StatStripItem
-              title="Aktive Kurse"
+              title={tt('aktive_kurse')}
               value={activeKurse.length}
               icon={<IconMusic size={16} />}
               tone="default"
             />
             <StatStripItem
-              title="Anmeldungen"
+              title={tt('anmeldungen')}
               value={aktuelleAnmeldungen.length}
               icon={<IconCheck size={16} />}
               tone={aktuelleAnmeldungen.length > 0 ? 'success' : 'default'}
             />
             <StatStripItem
-              title="Ausstehende Zahlungen"
+              title={tt('ausstehende_zahlungen')}
               value={ausstehendZahlungen.length}
               tone={ausstehendZahlungen.length > 0 ? 'warning' : 'default'}
             />
             <StatStripItem
-              title="Diese Woche"
+              title={tt('diese_woche')}
               value={kurseThisWeek.length}
               tone={kurseThisWeek.length > 0 ? 'primary' : 'default'}
             />
@@ -288,7 +322,7 @@ export default function DashboardOverview() {
         aside={
           <>
             <WorkList
-              title="Neue Anmeldungen"
+              title={tt('neue_anmeldungen')}
               max={6}
               items={neueAnmeldungen.map(a => {
                 const tnName = [
@@ -308,19 +342,19 @@ export default function DashboardOverview() {
                     </>
                   ),
                   action: {
-                    label: '✓ Abschließen',
+                    label: tt('abschliessen'),
                     onClick: () => advanceAnmeldung(a),
                   },
                 };
               })}
               onItemClick={id => overlay.replace({ type: 'anmeldung', id })}
               empty={{
-                text: 'Keine neuen Anmeldungen in den letzten 7 Tagen',
-                action: { label: 'Anmeldung erfassen', onClick: () => setAnmeldungDialog({ open: true }) },
+                text: tt('keine_neuen_anmeldungen'),
+                action: { label: tt('anmeldung_erfassen'), onClick: () => setAnmeldungDialog({ open: true }) },
               }}
             />
             <WorkList
-              title="Ausstehende Zahlungen"
+              title={tt('ausstehende_zahlungen')}
               max={5}
               items={ausstehendZahlungen.map(z => {
                 const anmeldung = anmeldungen.find(a => a.record_id === extractRecordId(z.fields.anmeldung));
@@ -344,14 +378,14 @@ export default function DashboardOverview() {
                     </>
                   ),
                   action: {
-                    label: '✓ Bezahlt',
+                    label: tt('bezahlt'),
                     onClick: () => markZahlungBezahlt(z),
                   },
                 };
               })}
               onItemClick={id => overlay.replace({ type: 'zahlung', id })}
               empty={{
-                text: 'Alle Zahlungen beglichen — super!',
+                text: tt('alle_zahlungen_beglichen'),
               }}
             />
           </>
@@ -566,13 +600,13 @@ export default function DashboardOverview() {
           if (top.type === 'anmeldung') {
             const a = findAnmeldung(top.id);
             if (a && a.fields.status_anmeldung?.key === 'angemeldet') {
-              return { label: '✓ Abschließen', onClick: () => { void advanceAnmeldung(enrichedAnmeldungen.find(ea => ea.record_id === a.record_id)!); overlay.close(); } };
+              return { label: tt('abschliessen'), onClick: () => { void advanceAnmeldung(enrichedAnmeldungen.find(ea => ea.record_id === a.record_id)!); overlay.close(); } };
             }
           }
           if (top.type === 'zahlung') {
             const z = findZahlung(top.id);
             if (z && (z.fields.zahlungsstatus?.key === 'ausstehend' || z.fields.zahlungsstatus?.key === 'teilbezahlt')) {
-              return { label: '✓ Als bezahlt markieren', onClick: () => { void markZahlungBezahlt(enrichedZahlungen.find(ez => ez.record_id === z.record_id)!); overlay.close(); } };
+              return { label: tt('als_bezahlt_markieren'), onClick: () => { void markZahlungBezahlt(enrichedZahlungen.find(ez => ez.record_id === z.record_id)!); overlay.close(); } };
             }
           }
           return undefined;

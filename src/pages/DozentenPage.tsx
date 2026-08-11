@@ -15,6 +15,7 @@ import { DozentenDialog } from '@/components/dialogs/DozentenDialog';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { PageShell } from '@/components/PageShell';
 import { AI_PHOTO_SCAN, AI_PHOTO_LOCATION } from '@/config/ai-features';
+import { t, appLabel, fieldLabel, lookupLabel } from '@/i18n';
 
 export default function DozentenPage() {
   const navigate = useNavigate();
@@ -100,18 +101,18 @@ export default function DozentenPage() {
 
   return (
     <PageShell
-      title="Dozenten"
-      subtitle={`${records.length} Dozenten im System`}
+      title={appLabel('dozenten')}
+      subtitle={`${records.length} ${t('in_system', { entity: appLabel('dozenten') })}`}
       action={
         <Button onClick={() => setDialogOpen(true)} className="shrink-0 rounded-full shadow-sm">
-          <IconPlus className="h-4 w-4 mr-2" /> Hinzufügen
+          <IconPlus className="h-4 w-4 mr-2" /> {t('add')}
         </Button>
       }
     >
       <div className="relative w-full max-w-sm">
         <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Dozenten suchen..."
+          placeholder={t('search_entity', { entity: appLabel('dozenten') })}
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="pl-9"
@@ -123,53 +124,53 @@ export default function DozentenPage() {
             <TableRow className="border-b border-input">
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('vorname')}>
                 <span className="inline-flex items-center gap-1">
-                  Vorname
+                  {fieldLabel('dozenten', 'vorname')}
                   {sortKey === 'vorname' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('nachname')}>
                 <span className="inline-flex items-center gap-1">
-                  Nachname
+                  {fieldLabel('dozenten', 'nachname')}
                   {sortKey === 'nachname' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('email')}>
                 <span className="inline-flex items-center gap-1">
-                  E-Mail-Adresse
+                  {fieldLabel('dozenten', 'email')}
                   {sortKey === 'email' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('telefon')}>
                 <span className="inline-flex items-center gap-1">
-                  Telefonnummer
+                  {fieldLabel('dozenten', 'telefon')}
                   {sortKey === 'telefon' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('instrumente')}>
                 <span className="inline-flex items-center gap-1">
-                  Instrumente / Fachbereiche
+                  {fieldLabel('dozenten', 'instrumente')}
                   {sortKey === 'instrumente' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('qualifikationen')}>
                 <span className="inline-flex items-center gap-1">
-                  Qualifikationen
+                  {fieldLabel('dozenten', 'qualifikationen')}
                   {sortKey === 'qualifikationen' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('beschaeftigungsart')}>
                 <span className="inline-flex items-center gap-1">
-                  Beschäftigungsart
+                  {fieldLabel('dozenten', 'beschaeftigungsart')}
                   {sortKey === 'beschaeftigungsart' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
               <TableHead className="uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6 cursor-pointer select-none hover:text-foreground transition-colors" onClick={() => toggleSort('foto')}>
                 <span className="inline-flex items-center gap-1">
-                  Foto
+                  {fieldLabel('dozenten', 'foto')}
                   {sortKey === 'foto' ? (sortDir === 'asc' ? <IconArrowUp size={14} /> : <IconArrowDown size={14} />) : <IconArrowsUpDown size={14} className="opacity-30" />}
                 </span>
               </TableHead>
-              <TableHead className="w-24 uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6">Aktionen</TableHead>
+              <TableHead className="w-24 uppercase text-xs font-semibold text-secondary-foreground tracking-wider px-6">{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -179,9 +180,9 @@ export default function DozentenPage() {
                 <TableCell>{record.fields.nachname ?? '—'}</TableCell>
                 <TableCell>{record.fields.email ?? '—'}</TableCell>
                 <TableCell>{record.fields.telefon ?? '—'}</TableCell>
-                <TableCell>{Array.isArray(record.fields.instrumente) ? record.fields.instrumente.map((v: any) => v?.label ?? v).join(', ') : '—'}</TableCell>
+                <TableCell>{Array.isArray(record.fields.instrumente) ? record.fields.instrumente.map((v: any) => lookupLabel('dozenten', 'instrumente', v?.key) ?? v?.label ?? v).join(', ') : '—'}</TableCell>
                 <TableCell className="max-w-xs"><span className="truncate block">{record.fields.qualifikationen ?? '—'}</span></TableCell>
-                <TableCell><span className="inline-flex items-center bg-secondary border border-[#bfdbfe] text-[#2563eb] rounded-[10px] px-2 py-1 text-sm font-medium">{record.fields.beschaeftigungsart?.label ?? '—'}</span></TableCell>
+                <TableCell><span className="inline-flex items-center bg-secondary border border-[#bfdbfe] text-[#2563eb] rounded-[10px] px-2 py-1 text-sm font-medium">{lookupLabel('dozenten', 'beschaeftigungsart', record.fields.beschaeftigungsart?.key) ?? record.fields.beschaeftigungsart?.label ?? '—'}</span></TableCell>
                 <TableCell>{record.fields.foto ? <div className="relative h-8 w-8 rounded bg-muted overflow-hidden"><div className="absolute inset-0 flex items-center justify-center"><IconFileText size={14} className="text-muted-foreground" /></div><img src={record.fields.foto} alt="" className="relative h-full w-full object-cover" onError={e => { (e.target as HTMLImageElement).style.display = "none"; }} /></div> : '—'}</TableCell>
                 <TableCell>
                   <div className="flex gap-1">
@@ -198,7 +199,7 @@ export default function DozentenPage() {
             {filtered.length === 0 && (
               <TableRow>
                 <TableCell colSpan={9} className="text-center py-16 text-muted-foreground">
-                  {search ? 'Keine Ergebnisse gefunden.' : 'Noch keine Dozenten. Jetzt hinzufügen!'}
+                  {search ? t('no_results') : t('no_data_yet', { entity: appLabel('dozenten') })}
                 </TableCell>
               </TableRow>
             )}
@@ -220,8 +221,8 @@ export default function DozentenPage() {
         open={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}
         onConfirm={handleDelete}
-        title="Dozenten löschen"
-        description="Soll dieser Eintrag wirklich gelöscht werden? Diese Aktion kann nicht rückgängig gemacht werden."
+        title={t('delete_entity', { entity: appLabel('dozenten') })}
+        description={t('confirm_delete_desc')}
       />
 
     </PageShell>

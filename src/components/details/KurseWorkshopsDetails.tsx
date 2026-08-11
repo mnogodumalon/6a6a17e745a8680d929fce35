@@ -4,6 +4,7 @@ import { extractRecordId } from '@/services/livingAppsService';
 import {
   RecordSection, RecordField, RecordRelation, RecordAttachments,
 } from '@/components/widgets/RecordView';
+import { t, appLabel, fieldLabel } from '@/i18n';
 import { SatelliteSection } from '@/components/SatelliteSection';
 
 export interface KurseWorkshopsDetailsProps {
@@ -39,31 +40,31 @@ export function KurseWorkshopsDetails({
   const dozentTarget = dozentenList.find(r => r.record_id === extractRecordId(record.fields.dozent));
   return (
     <>
-      <RecordSection title="Details" cols={2}>
-        <RecordField label="Titel" value={record.fields.titel} format="text" />
-        <RecordField label="Typ" value={record.fields.kurstyp} format="pill" />
-        <RecordField label="Beschreibung" value={record.fields.beschreibung} format="longtext" className="md:col-span-2" />
-        <RecordField label="Niveau" value={record.fields.niveau} format="pill" />
-        <RecordField label="Startdatum und -uhrzeit" value={record.fields.startdatum} format="datetime" />
-        <RecordField label="Enddatum und -uhrzeit" value={record.fields.enddatum} format="datetime" />
-        <RecordField label="Wochentag(e)" value={Array.isArray(record.fields.wochentag) ? record.fields.wochentag.map((v: unknown) => (v && typeof v === 'object' && 'label' in v) ? (v as {label: unknown}).label : v).join(', ') : null} format="text" />
-        <RecordField label="Uhrzeit Beginn" value={record.fields.uhrzeit_beginn} format="text" />
-        <RecordField label="Uhrzeit Ende" value={record.fields.uhrzeit_ende} format="text" />
-        <RecordField label="Maximale Teilnehmerzahl" value={record.fields.max_teilnehmer} format="text" />
-        <RecordField label="Preis (€)" value={record.fields.preis} format="text" />
-        <RecordField label="Status" value={record.fields.status_kurs} format="pill" />
+      <RecordSection title={t('details')} cols={2}>
+        <RecordField label={fieldLabel('kurse_workshops', 'titel')} value={record.fields.titel} format="text" />
+        <RecordField label={fieldLabel('kurse_workshops', 'kurstyp')} value={record.fields.kurstyp} format="pill" />
+        <RecordField label={fieldLabel('kurse_workshops', 'beschreibung')} value={record.fields.beschreibung} format="longtext" className="md:col-span-2" />
+        <RecordField label={fieldLabel('kurse_workshops', 'niveau')} value={record.fields.niveau} format="pill" />
+        <RecordField label={fieldLabel('kurse_workshops', 'startdatum')} value={record.fields.startdatum} format="datetime" />
+        <RecordField label={fieldLabel('kurse_workshops', 'enddatum')} value={record.fields.enddatum} format="datetime" />
+        <RecordField label={fieldLabel('kurse_workshops', 'wochentag')} value={Array.isArray(record.fields.wochentag) ? record.fields.wochentag.map((v: unknown) => (v && typeof v === 'object' && 'label' in v) ? (v as {label: unknown}).label : v).join(', ') : null} format="text" />
+        <RecordField label={fieldLabel('kurse_workshops', 'uhrzeit_beginn')} value={record.fields.uhrzeit_beginn} format="text" />
+        <RecordField label={fieldLabel('kurse_workshops', 'uhrzeit_ende')} value={record.fields.uhrzeit_ende} format="text" />
+        <RecordField label={fieldLabel('kurse_workshops', 'max_teilnehmer')} value={record.fields.max_teilnehmer} format="text" />
+        <RecordField label={fieldLabel('kurse_workshops', 'preis')} value={record.fields.preis} format="text" />
+        <RecordField label={fieldLabel('kurse_workshops', 'status_kurs')} value={record.fields.status_kurs} format="pill" />
       </RecordSection>
 
       {/* N:1 — verknüpfte Records: IMMER klickbar, nie eine Text-Sackgasse. */}
-      <RecordSection title="Verknüpft" cols={2}>
+      <RecordSection title={t('relations')} cols={2}>
         <RecordRelation
-          label="Raum"
+          label={fieldLabel('kurse_workshops', 'raum')}
           name={raumTarget?.fields.raumname ?? '—'}
           meta={[raumTarget?.fields.etage].filter(Boolean).join(' · ') || undefined}
           onClick={raumTarget && onOpenRaeume ? () => onOpenRaeume!(raumTarget!) : undefined}
         />
         <RecordRelation
-          label="Dozent"
+          label={fieldLabel('kurse_workshops', 'dozent')}
           name={dozentTarget?.fields.vorname ?? '—'}
           meta={[dozentTarget?.fields.email, dozentTarget?.fields.telefon].filter(Boolean).join(' · ') || undefined}
           onClick={dozentTarget && onOpenDozenten ? () => onOpenDozenten!(dozentTarget!) : undefined}
@@ -71,9 +72,9 @@ export function KurseWorkshopsDetails({
       </RecordSection>
 
       <SatelliteSection
-        title="Anmeldungen"
+        title={appLabel('anmeldungen')}
         items={anmeldungenList.filter(r => extractRecordId(r.fields.kurs) === record.record_id)}
-        map={r => ({ name: 'Anmeldungen', meta: r.fields.anmeldedatum })}
+        map={r => ({ name: appLabel('anmeldungen'), meta: r.fields.anmeldedatum })}
         onOpen={onOpenAnmeldungen}
         onAdd={onAddAnmeldungen}
         getKey={r => r.record_id}
